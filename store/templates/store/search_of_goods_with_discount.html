@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+
+{% block title %}Акции{% endblock %}
+{% block content %}
+{% include 'inc/_nav.html' %}
+
+<div>
+    <section class="text-center mb-4">
+        <div class="row wow fadeIn">
+            <div class="search">
+                {% include 'inc/_discount_search.html' %}
+            </div>
+            {% for product in products %}
+            <div class="col-lg-3 col-md-6 md-4 p-2">
+                <div class="card">
+                    <div class="view overplay">
+                        <img src="{{ product.photo.url }}" class="card-img-top">
+                        <div class="card-body">
+                            <a href="{{ product.get_absolute_url }}"><h5 class="card-title product-name">{{ product.name|truncatechars:18 }}</h5></a>
+                            <p class="card-text">Скидка {{ product.discount }} %</p>
+                            <p class="card-text">Цена со скидкой: <s>{{ product.price }}</s> {{ product.get_discount }} р.</p>
+                            <a href="#" class="btn btn-primary">Добавить в корзину</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        <div class="paginator">
+            <nav aria-label="nav-paginator">
+                <ul class="pagination">
+                    {% if page_obj.has_other_pages %}
+                    {% if page_obj.has_previous %}
+                    <li class="page-item">
+                        <a class="page-link" href="?{{ search }}page={{ page_obj.previous_page_number }}">Предыдущая</a>
+                    </li>
+                    {% endif %}
+
+                    {% for page_number in page_obj.paginator.page_range %}
+                        {% if page_obj.number == page_number %}
+                        <li class="page-item" aria-current="page">
+                            <a class="page-link active" href="?{{ search }}page={{ page_number }}">{{ page_number }}</a>
+                        </li>
+                        {% elif page_number > page_obj.number|add:-1 and page_number < page_obj.number|add:3 %}
+                        <li class="page-item" aria-current="page">
+                            <a class="page-link" href="?{{ search }}page={{ page_number }}">{{ page_number }}</a>
+                        </li>
+                        {% endif %}
+                    {% endfor %}
+
+                    {% if page_obj.has_next %}
+                    <li class="page-item">
+                        <a class="page-link" href="?{{ search }}page={{ page_obj.next_page_number }}">Следующая</a>
+                    </li>
+                    {% endif %}
+                    {% endif %}
+                </ul>
+            </nav>
+        </div>
+    </section>
+</div>
+
+{% endblock %}
