@@ -22,10 +22,14 @@ a {
 }
 
 .empty {
-    margin-top: 50px
+    margin-top: 50px;
 }
 
 .search {
     display: flex;
     justify-content: space-between;
+}
+
+.cart-submit {
+    margin-top: 6px;
 }

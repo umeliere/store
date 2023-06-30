@@ -1,3 +1,5 @@
+from decimal import Decimal
+
 from django.db import models
 from django.urls import reverse_lazy
 
@@ -23,7 +25,7 @@ class Product(models.Model):
     @property
     def get_discount(self):
         """Рассчитать стоимость со скидкой"""
-        return int(self.price * (100 - self.discount) / 100) + 0.99
+        return round(self.price * (100 - self.discount) / 100, 2)
 
     def get_absolute_url(self):
         return reverse_lazy('product_detail', kwargs={'pk': self.pk})

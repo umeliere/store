@@ -20,7 +20,11 @@
                         <p class="card-text">Годен до: {{ product.shelf_time }}<br>Масса продукта: {{ product.weight }}кг.</p>
                         <p class="card-text">Цена {{ product.get_discount }} р.</p>
                         {% endif %}
-                        <a href="#" class="btn btn-primary">Добавить в корзину</a>
+                        <form action="{% url 'cart:cart_add' product.pk %}" method="post">
+                            {% csrf_token %}
+                            {{ cart_product_form }}
+                            <input type="submit" class="btn btn-primary" value="Добавить в корзину">
+                        </form>
                     </div>
                 </div>
             </div>

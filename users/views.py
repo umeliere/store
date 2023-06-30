@@ -1,6 +1,6 @@
 from django.contrib.auth.views import LoginView, LogoutView
 
-from users import forms, models
+from users import forms
 from django.urls import reverse_lazy
 from django.views import generic
 from django.contrib import messages

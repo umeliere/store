@@ -1,5 +1,7 @@
+from django.shortcuts import get_object_or_404, render
 from django.views.generic import ListView, DetailView
 from store import models
+from cart.forms import CartAddProductForm
 
 
 # products with some discount
@@ -75,3 +77,8 @@ class ProductDetailView(DetailView):
     template_name = 'store/product.html'
     model = models.Product
     context_object_name = 'product'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['cart_product_form'] = CartAddProductForm()
+        return context
