@@ -1,12 +1,11 @@
-from django.shortcuts import get_object_or_404, render
 from django.views.generic import ListView, DetailView
 from store import models
 from cart.forms import CartAddProductForm
 
 
 # products with some discount
-class GoodsWithDiscountPageView(ListView):
-    template_name = 'store/index.html'
+class ProductsWithDiscountView(ListView):
+    template_name = 'store/discount_page.html'
     context_object_name = 'products'
     paginate_by = 4
     model = models.Product
@@ -15,8 +14,8 @@ class GoodsWithDiscountPageView(ListView):
         return models.Product.objects.exclude(discount=0)
 
 
-class SearchViewOfGoodsWithDiscount(ListView):
-    template_name = 'store/search_of_goods_with_discount.html'
+class SearchProductsWithDiscountView(ListView):
+    template_name = 'store/search_discount_page.html'
     context_object_name = 'products'
     paginate_by = 4
 
@@ -29,19 +28,24 @@ class SearchViewOfGoodsWithDiscount(ListView):
         return context
 
 
-class CategoryViewByProducts(ListView):
-    template_name = 'store/products_by_category.html'
+class ProductsWithDiscountByCategory(ListView):
+    template_name = 'store/discount_page_by_category.html'
     context_object_name = 'products'
-    paginate_by = 1
+    paginate_by = 4
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['category_name'] = models.Category.objects.get(pk=self.kwargs['pk'])
+        return context
 
     def get_queryset(self):
         return models.Product.objects.filter(category_id=self.kwargs['pk']).exclude(discount=0)
 
 
 # products without any discount
-class GoodsPageView(ListView):
-    template_name = 'store/goods.html'
-    context_object_name = 'goods'
+class ProductsWithoutDiscountView(ListView):
+    template_name = 'store/products_page.html'
+    context_object_name = 'products'
     paginate_by = 4
     model = models.Product
 
@@ -49,9 +53,9 @@ class GoodsPageView(ListView):
         return models.Product.objects.filter(discount=0)
 
 
-class SearchViewOfGoods(ListView):
-    template_name = 'store/search_of_goods.html'
-    context_object_name = 'goods'
+class SearchProductsWithoutDiscountView(ListView):
+    template_name = 'store/search_products_page.html'
+    context_object_name = 'products'
     paginate_by = 4
 
     def get_queryset(self):
@@ -63,10 +67,15 @@ class SearchViewOfGoods(ListView):
         return context
 
 
-class CategoryView(ListView):
-    template_name = 'store/goods_by_category.html'
-    context_object_name = 'goods'
+class ProductsWithoutDiscountByCategory(ListView):
+    template_name = 'store/products_page_by_category.html'
+    context_object_name = 'products'
     paginate_by = 2
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['category_name'] = models.Category.objects.get(pk=self.kwargs['pk'])
+        return context
 
     def get_queryset(self):
         return models.Product.objects.filter(category_id=self.kwargs['pk'], discount=0)

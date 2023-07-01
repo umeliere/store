@@ -33,3 +33,8 @@ a {
 .cart-submit {
     margin-top: 6px;
 }
+
+.search-outcome {
+    display: flex;
+    justify-content: flex-end;
+}

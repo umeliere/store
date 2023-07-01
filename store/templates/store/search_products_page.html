@@ -1,16 +1,16 @@
 {% extends 'base.html' %}
 
-{% block title %}Акции{% endblock %}
+{% block title %}Продукты{% endblock %}
 {% block content %}
 {% include 'inc/_nav.html' %}
 
 <div>
     <section class="text-center mb-4">
         <div class="row wow fadeIn">
-            <div class="search">
-                {% include 'inc/_search.html' %}
+            <div class="search-outcome">
+                {% include 'inc/_products_search.html' %}
             </div>
-            {% for product in goods %}
+            {% for product in products %}
             <div class="col-lg-3 col-md-6 md-4 p-2">
                 <div class="card">
                     <div class="view overplay">

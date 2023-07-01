@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 
-{% block title %}Акции{% endblock %}
+{% block title %}{{ category_name }}{% endblock %}
 {% block content %}
 {% include 'inc/_nav.html' %}
 {% load products_tags %}
@@ -16,19 +16,19 @@
                   <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                       {% get_categories as categories %}
                       {% for item in categories %}
-                          <li><a class="dropdown-item" href="{% url 'category' item.pk %}">{{ item.name }}</a></li>
+                          <li><a class="dropdown-item" href="{% url 'category_by_product' item.pk %}">{{ item.name }}</a></li>
                       {% endfor %}
                   </ul>
                 </div>
             </div>
-            {% for product in goods %}
+            {% for product in products %}
             <div class="col-lg-3 col-md-6 md-4 p-2">
                 <div class="card">
                     <div class="view overplay">
                         <img src="{{ product.photo.url }}" class="card-img-top">
                         <div class="card-body">
                             <a href="{{ product.get_absolute_url }}"><h5 class="card-title product-name">{{ product.name|truncatechars:18 }}</h5></a>
-                            <p class="card-text">Цена: {{ product.get_discount }} р.</p>
+                            <p class="card-text">Цена со скидкой: <s>{{ product.price }}</s> {{ product.get_discount }} р.</p>
                         </div>
                     </div>
                 </div>
