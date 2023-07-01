@@ -6,8 +6,8 @@ from django.urls import path, include
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('cart/', include('cart.urls', namespace='cart')),
-    path('', include('store.urls')),
-    path("users/", include("users.urls")),
+    path('', include('store.urls', namespace='store')),
+    path("users/", include("users.urls", namespace='users')),
     path("users/", include("django.contrib.auth.urls")),
     path('__debug__/', include('debug_toolbar.urls')),
 ]

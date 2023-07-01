@@ -15,7 +15,7 @@
                   </div>
                 {% endfor %}
 
-                <form method="post" action="{% url 'signup' %}">
+                <form method="post" action="{% url 'users:signup' %}">
                     {% csrf_token %}
 
                     {% for field in form %}
@@ -38,7 +38,7 @@
                             </button>
                     </div>
 
-                    <a href="{% url 'login' %}" class="btn btn-link">
+                    <a href="{% url 'users:login' %}" class="btn btn-link">
                         Уже имеете аккаунт?
                     </a>
                 </form>
@@ -47,4 +47,8 @@
     </div>
 </div>
 
+{% endblock %}
+
+{% block footer %}
+{% include 'inc/_footer.html' %}
 {% endblock %}

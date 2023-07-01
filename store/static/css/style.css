@@ -38,3 +38,11 @@ a {
     display: flex;
     justify-content: flex-end;
 }
+
+.navbar__class {
+    margin-bottom: 15px;
+}
+
+.footer {
+    margin-top: 50px
+}

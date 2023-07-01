@@ -1,6 +1,7 @@
 from django.urls import path
 from store import views
 
+app_name = 'store'
 urlpatterns = [
     # products with some discount
     path('', views.ProductsWithDiscountView.as_view(), name='discount_page'),

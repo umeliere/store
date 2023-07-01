@@ -26,7 +26,7 @@ class Product(models.Model):
         return round(self.price * (100 - self.discount) / 100, 2)
 
     def get_absolute_url(self):
-        return reverse_lazy('product_detail', kwargs={'pk': self.pk})
+        return reverse_lazy('store:product_detail', kwargs={'pk': self.pk})
 
 
 class Producer(models.Model):
@@ -51,4 +51,4 @@ class Category(models.Model):
         return self.name
 
     def get_absolute_url(self):
-        return reverse_lazy('category', kwargs={'pk': self.pk})
+        return reverse_lazy('store:category', kwargs={'pk': self.pk})
