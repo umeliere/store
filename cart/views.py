@@ -12,10 +12,10 @@ def cart_add(request, pk):
     product = get_object_or_404(models.Product, pk=pk)
     form = forms.CartAddProductForm(request.POST)
     if form.is_valid():
-        cd = form.cleaned_data
+        clean_data = form.cleaned_data
         cart.add(product=product,
-                 quantity=cd['quantity'],
-                 update_quantity=cd['update'])
+                 quantity=clean_data['quantity'],
+                 update_quantity=clean_data['update'])
     return redirect('cart:cart_detail')
 
 

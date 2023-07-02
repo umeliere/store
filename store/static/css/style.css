@@ -3,15 +3,6 @@ a {
     text-decoration: none;
 }
 
-.product-name {
-    color: #00bfff;
-}
-
-.product-name:hover {
-    color: #8a2be2;
-    transition: 0.75s;
-}
-
 .password__reset__button, .password__reset__button {
     margin-top: 12px;
 }
@@ -45,4 +36,13 @@ a {
 
 .footer {
     margin-top: 50px
+}
+
+.product_buttons {
+    display: flex;
+    justify-content: space-around;
+}
+
+.up {
+  vertical-align: 4px;
 }

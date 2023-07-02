@@ -28,8 +28,16 @@
                     <div class="view overplay">
                         <img src="{{ product.photo.url }}" class="card-img-top">
                         <div class="card-body">
-                            <a href="{{ product.get_absolute_url }}"><h5 class="card-title product-name">{{ product.name|truncatechars:18 }}</h5></a>
-                            <p class="card-text">Цена: {{ product.get_discount }} р.</p>
+                            <h5 class="card-title">{{ product.name|truncatechars:18 }}</h5>
+                            <p class="card-text">{{ product.get_discount }} р.</p>
+                            <form action="{% url 'cart:cart_add' product.pk %}" method="post">
+                            {% csrf_token %}
+                            <input type="hidden" name="quantity" value="1" required id="id_quantity"/>
+                            <div class="product_buttons">
+                                <a href="{{ product.get_absolute_url }}" class="btn btn-primary">Подробнее</a>
+                                <button type="submit" class="btn btn-primary">В корзину</button>
+                            </div>
+                            </form>
                         </div>
                     </div>
                 </div>
