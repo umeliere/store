@@ -4,8 +4,8 @@ from django.views.generic.edit import CreateView
 from django.contrib.messages.views import SuccessMessageMixin
 
 from store import models
-from .models import OrderItem
-from .forms import OrderCreateForm
+from orders.models import OrderItem
+from orders.forms import OrderCreateForm
 from cart.cart import Cart
 
 

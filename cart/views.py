@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.views.decorators.http import require_POST
 
 from store import models
-from .cart import Cart
+from cart.cart import Cart
 from cart import forms
 
 
