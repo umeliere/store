@@ -1,19 +1,22 @@
 {% extends "base.html" %}
 
-{% block title %}Пароль был успешно сброшен{% endblock %}
+{% block title %}Вы успешно оформили заказ!{% endblock %}
 
 {% block content %}
 {% include 'inc/_nav.html' %}
 {% load user_filters %}
 
+
 <div class="row">
     <div class="col-md-5 p-5">
         <div class="card">
             <div class="card-header">
-                <h4>Пароль был успешно сброшен</h4>
+                <h4>Вы успешно оформили заказ!</h4>
             </div>
             <div class="card-body">
-                <p>Мы отправили на почту инструкцию по сбросу пароля. Если она не пришла в течение нескольких минут, то проверьте спам.</p>
+                <button type="submit" class="btn btn-primary">
+                    <a href="{% url 'store:discount_page' %}">Вернуться к покупкам</a>
+                </button>
             </div>
         </div>
     </div>
