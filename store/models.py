@@ -20,7 +20,6 @@ class Product(models.Model):
     def __str__(self):
         return self.name
 
-    @property
     def get_discount(self):
         """Рассчитать стоимость со скидкой"""
         return round(self.price * (100 - self.discount) / 100, 2)

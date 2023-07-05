@@ -34,7 +34,7 @@
     <div class="col-md-8 order-md-1">
       {% if form.errors %}
       <div class="alert alert-danger" role="alert">
-        Введите корректный номер телефона.
+        Введите корректные данные.
       </div>
       {% endif %}
       <h4 class="mb-3">Заполните данные</h4>
@@ -52,7 +52,7 @@
         </div>
         <div class="mb-3">
           <label for="{{ form.phone.id_for_label }}">Номер телефона</label>
-          {% render_field form.phone class="form-control" placeholder="+71234567890" %}
+          {% render_field form.phone class="form-control" placeholder="+78005553535" %}
         </div>
         <div class="mb-3">
           <label for="{{ form.address.id_for_label }}">Адрес</label>

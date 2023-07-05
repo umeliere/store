@@ -1,13 +1,13 @@
 from django.contrib.auth.views import LoginView, LogoutView
 
-from users import forms
+from users.forms import CreationForm
 from django.urls import reverse_lazy
-from django.views import generic
+from django.views.generic.edit import CreateView
 from django.contrib import messages
 
 
-class SignUpView(generic.CreateView):
-    form_class = forms.CreationForm
+class SignUpView(CreateView):
+    form_class = CreationForm
     success_url = reverse_lazy('users:login')
     template_name = 'users/signup.html'
 

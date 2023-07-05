@@ -1,15 +1,16 @@
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
 from django.views.generic import TemplateView
 from django.views.generic.edit import CreateView
-from django.contrib.messages.views import SuccessMessageMixin
 
-from store import models
+from store.models import Product
 from orders.models import OrderItem
 from orders.forms import OrderCreateForm
 from cart.cart import Cart
 
 
-class OrderCreateView(SuccessMessageMixin, CreateView):
+class OrderCreateView(LoginRequiredMixin, CreateView):
+    login_url = reverse_lazy('users:login')
     form_class = OrderCreateForm
     template_name = 'orders/create.html'
     success_url = reverse_lazy('orders:success')
@@ -28,7 +29,7 @@ class OrderCreateView(SuccessMessageMixin, CreateView):
         return super(OrderCreateView, self).form_valid(form)
 
     def get_queryset(self):
-        return models.Product.objects.filter(user=self.request.user)
+        return Product.objects.filter(user=self.request.user)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)

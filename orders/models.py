@@ -22,7 +22,7 @@ class Order(models.Model):
         verbose_name_plural = 'Заказы'
 
     def __str__(self):
-        return 'Заказ {}'.format(self.pk)
+        return f'Заказ {self.pk}'
 
     def get_total_cost(self):
         return sum(item.get_cost() for item in self.items.all())
@@ -35,7 +35,7 @@ class OrderItem(models.Model):
     quantity = models.PositiveIntegerField(default=1, verbose_name='Количество')
 
     def __str__(self):
-        return '{}'.format(self.pk)
+        return f'Позиция {self.pk}'
 
     def get_cost(self):
         return self.price * self.quantity

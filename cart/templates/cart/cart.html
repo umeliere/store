@@ -1,6 +1,5 @@
 {% extends "base.html" %}
 
-
 {% block title %}Корзина{% endblock %}
 
 {% block content %}
@@ -29,7 +28,7 @@
                     <p><span class="text-muted">Итоговый вес: </span>{{ item.total_weight|floatformat:2 }} кг.<br><span class="text-muted">{% if product.discount != 0 %}Скидка: </span>{{ product.discount }} %.{% endif %}</p>
                   </div>
                   <div class="col-md-3 col-lg-3 col-xl-2 d-flex">
-                    <form action="{% url 'cart:cart_add' product.id %}" method="post">
+                    <form action="{% url 'cart:cart_add' product.pk %}" method="post">
                       {% csrf_token %}
                       {{ item.update_quantity_form }}
                       {{ item.update_quantity_form.update }}

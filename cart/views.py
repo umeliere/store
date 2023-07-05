@@ -1,33 +1,48 @@
-from django.shortcuts import render, redirect, get_object_or_404
-from django.views.decorators.http import require_POST
+from django.shortcuts import redirect, get_object_or_404
+from django.views.generic import ListView
+from django.views.generic.edit import DeleteView, FormView
 
-from store import models
+from store.models import Product
 from cart.cart import Cart
-from cart import forms
+from cart.forms import CartAddProductForm
 
 
-@require_POST
-def cart_add(request, pk):
-    cart = Cart(request)
-    product = get_object_or_404(models.Product, pk=pk)
-    form = forms.CartAddProductForm(request.POST)
-    if form.is_valid():
+class CartAddView(FormView):
+    model = Product
+    template_name = 'cart/cart.html'
+    form_class = CartAddProductForm
+
+    def form_valid(self, form):
+        cart = Cart(self.request)
+        product = get_object_or_404(Product, pk=self.kwargs['pk'])
         clean_data = form.cleaned_data
         cart.add(product=product,
                  quantity=clean_data['quantity'],
                  update_quantity=clean_data['update'])
-    return redirect('cart:cart_detail')
+
+        return redirect('cart:cart_detail')
 
 
-def cart_remove(request, pk):
-    cart = Cart(request)
-    product = get_object_or_404(models.Product, pk=pk)
-    cart.remove(product)
-    return redirect('cart:cart_detail')
+class CartRemoveView(DeleteView):
+    model = Product
+    template_name = 'cart/cart.html'
+
+    def get(self, request, *args, **kwargs):
+        cart = Cart(request)
+        product = get_object_or_404(Product, pk=kwargs['pk'])
+        cart.remove(product)
+        return redirect('cart:cart_detail')
 
 
-def cart_detail(request):
-    cart = Cart(request)
-    for item in cart:
-        item['update_quantity_form'] = forms.CartAddProductForm(initial={'quantity': item['quantity'], 'update': True})
-    return render(request, 'cart/cart.html', {'cart': cart})
+class CartDetailView(ListView):
+    model = Product
+    form_class = CartAddProductForm
+    template_name = 'cart/cart.html'
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['cart'] = Cart(self.request)
+        for item in context['cart']:
+            item['update_quantity_form'] = CartAddProductForm(initial={'quantity': item['quantity'], 'update': True})
+
+        return context
