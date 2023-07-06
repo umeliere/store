@@ -1,18 +1,20 @@
 from django.contrib.auth.forms import UserCreationForm
-from django.contrib.auth import get_user_model
+from django.contrib.auth.models import User
+from django.forms import ModelForm, FileInput, ImageField
 
 from users.models import Profile
 
-User = get_user_model()
 
-
-class CreationForm(UserCreationForm):
+class UserForm(UserCreationForm):
     class Meta(UserCreationForm.Meta):
         model = User
-        fields = ("username", "email")
+        fields = ("username", "first_name", "last_name", "email")
 
 
-class ProfileForm(UserCreationForm):
+class ProfileForm(ModelForm):
+    photo = ImageField(required=False, label='Аватар', error_messages={'invalid': ('Только файлы изображений', )},
+                       widget=FileInput)
+
     class Meta:
         model = Profile
-        fields = ("first_name", "last_name", "address", "phone", "city")
+        fields = ("address", "phone", "city", "photo")

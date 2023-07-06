@@ -42,6 +42,10 @@
                     </div>
                 </div>
             </div>
+            {% empty %}
+            <div class="empty">
+                <h2>Не было найдено подходящих товаров по данной категории.</h2>
+            </div>
             {% endfor %}
         </div>
         {% include 'inc/_paginator.html' %}
