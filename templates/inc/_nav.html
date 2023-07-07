@@ -18,11 +18,13 @@
               </ul>
               {% if request.user.is_authenticated %}
               <span class="navbar-text">
-                Добро пожаловать, {{ user.username }} | <a href="{% url 'users:logout' %}">Выйти</a>
+                <a type="button" href="{% url 'users:profile' request.user.profile.slug %}" class="btn btn-light text-dark me-2">Профиль</a>
+                <a href="{% url 'users:logout' %}" class="btn btn-primary">Выйти</a>
               </span>
               {% else %}
               <span class="navbar-text">
-                <a href="{% url 'users:signup' %}">Регистрация</a> | <a href="{% url 'users:login' %}">Вход</a>
+                <a href="{% url 'users:login' %}" type="button" class="btn btn-light text-dark me-2">Вход</a>
+                <a href="{% url 'users:signup' %}" type="button" class="btn btn-primary">Регистрация</a>
               </span>
               {% endif %}
           </div>

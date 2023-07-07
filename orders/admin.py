@@ -8,11 +8,14 @@ class OrderItemInline(admin.TabularInline):
 
 
 class OrderAdmin(admin.ModelAdmin):
-    list_display = ['id', 'first_name', 'last_name', 'user',
-                    'address', 'phone', 'city', 'paid',
-                    'created', 'updated']
-    list_filter = ['paid', 'created', 'updated']
+    readonly_fields = ('user', 'get_total_cost',)
+    list_display = ('id', 'user', 'created', 'updated', 'full_name', 'cc_number', 'cc_expiry', 'cc_code')
+    list_filter = ('paid', 'created', 'updated')
     inlines = [OrderItemInline]
+
+    @staticmethod
+    def get_total_cost(obj):
+        return obj.get_total_cost()
 
     def save_model(self, request, obj, form, change):
 

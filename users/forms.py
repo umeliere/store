@@ -6,14 +6,23 @@ from users.models import Profile
 
 
 class UserForm(UserCreationForm):
+    def __init__(self, *args, **kwargs):
+        super(UserForm, self).__init__(*args, **kwargs)
+        self.fields['email'].required = True
+
     class Meta(UserCreationForm.Meta):
         model = User
         fields = ("username", "first_name", "last_name", "email")
 
 
 class ProfileForm(ModelForm):
-    photo = ImageField(required=False, label='Аватар', error_messages={'invalid': ('Только файлы изображений', )},
-                       widget=FileInput)
+    def __init__(self, *args, **kwargs):
+        super(ProfileForm, self).__init__(*args, **kwargs)
+        self.fields['address'].required = True
+        self.fields['phone'].required = True
+        self.fields['city'].required = True
+        self.fields['photo'] = ImageField(required=False, label='Аватар', error_messages={
+            'invalid': ('Только файлы изображений', )}, widget=FileInput)
 
     class Meta:
         model = Profile

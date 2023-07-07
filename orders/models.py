@@ -1,17 +1,15 @@
 from django.db import models
-from phonenumber_field.modelfields import PhoneNumberField
-
+from creditcards.models import CardNumberField, CardExpiryField, SecurityCodeField
 from store.models import Product
 from users.forms import User
 
 
 class Order(models.Model):
-    first_name = models.CharField(max_length=50, verbose_name='Имя')
-    last_name = models.CharField(max_length=50, verbose_name='Фамилия')
-    user = models.ForeignKey(User, on_delete=models.PROTECT, editable=False)
-    address = models.CharField(max_length=250, verbose_name='Адрес')
-    phone = PhoneNumberField(null=False, blank=False, verbose_name='Номер телефона')
-    city = models.CharField(max_length=100, verbose_name='Город')
+    user = models.ForeignKey(User, on_delete=models.PROTECT, editable=False, verbose_name='Пользователь')
+    full_name = models.CharField(max_length=100, verbose_name='Полное имя на карте')
+    cc_number = CardNumberField(verbose_name='Номер карты', max_length=19)
+    cc_expiry = CardExpiryField(verbose_name='Срок действия карты', max_length=5)
+    cc_code = SecurityCodeField(verbose_name='Код безопасности', max_length=3)
     created = models.DateTimeField(auto_now_add=True, verbose_name="Дата создания")
     updated = models.DateTimeField(auto_now=True, verbose_name='Дата обновления')
     paid = models.BooleanField(default=False, verbose_name='Оплачено ли?')
@@ -24,8 +22,9 @@ class Order(models.Model):
     def __str__(self):
         return f'Заказ {self.pk}'
 
-    def get_total_cost(self):
-        return sum(item.get_cost() for item in self.items.all())
+    @staticmethod
+    def get_total_cost():
+        return 'nothing'
 
 
 class OrderItem(models.Model):
