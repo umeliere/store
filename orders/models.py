@@ -1,5 +1,7 @@
 from django.db import models
 from creditcards.models import CardNumberField, CardExpiryField, SecurityCodeField
+from django.db.models import Sum, F
+
 from store.models import Product
 from users.forms import User
 
@@ -15,16 +17,17 @@ class Order(models.Model):
     paid = models.BooleanField(default=False, verbose_name='Оплачено ли?')
 
     class Meta:
-        ordering = ('-created',)
+        ordering = ('created',)
         verbose_name = 'Заказ'
         verbose_name_plural = 'Заказы'
 
     def __str__(self):
         return f'Заказ {self.pk}'
 
-    @staticmethod
-    def get_total_cost():
-        return 'nothing'
+    def get_total_cost(self):
+        queryset = OrderItem.objects.filter(order=self.pk).aggregate(total_cost=Sum(F('price') * F('quantity')))
+        number = [str(key) for item, key in queryset.items()]
+        return f'{number[0]} р.'
 
 
 class OrderItem(models.Model):
@@ -35,6 +38,3 @@ class OrderItem(models.Model):
 
     def __str__(self):
         return f'Позиция {self.pk}'
-
-    def get_cost(self):
-        return self.price * self.quantity
