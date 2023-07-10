@@ -11,13 +11,6 @@
         <div class="card">
             <div class="card-header">{{ title }}</div>
             <div class="card-body">
-
-              {% for error in form.errors %}
-                  <div class="alert alert-danger" role="alert">
-                      {{ error|escape }}
-                  </div>
-              {% endfor %}
-
                 <form method="post" action="" enctype=multipart/form-data>
                     {% csrf_token %}
                     <div class="form-group row">
@@ -32,6 +25,9 @@
                         <div class="col-md-6 m-2">
                             {% render_field profile_form.phone|add_class:"form-control" placeholder="+78005553535" %}
                         </div>
+                        {% if profile_form.phone.errors %}
+                            {{ profile_form.phone.errors }}
+                        {% endif %}
                     </div>
 
                     <div class="form-group row">
@@ -42,7 +38,7 @@
                     </div>
 
                     <div class="form-group row">
-                        <label for="{{ profile_form.photo.id_for_label }}" class="col-md-4 col-form-label text-md-right">Аватар<span class="required">*</span></label>
+                        <label for="{{ profile_form.photo.id_for_label }}" class="col-md-4 col-form-label text-md-right">Аватар</label>
                         <div class="col-md-6 m-2">
                             {% render_field profile_form.photo|add_class:"form-control" %}
                         </div>

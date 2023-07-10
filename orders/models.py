@@ -7,6 +7,9 @@ from users.forms import User
 
 
 class Order(models.Model):
+    """
+    Модель заказа, отображаемого в админ-панели
+    """
     user = models.ForeignKey(User, on_delete=models.PROTECT, editable=False, verbose_name='Пользователь')
     full_name = models.CharField(max_length=100, verbose_name='Полное имя на карте')
     cc_number = CardNumberField(verbose_name='Номер карты', max_length=19)
@@ -31,6 +34,9 @@ class Order(models.Model):
 
 
 class OrderItem(models.Model):
+    """
+    Модель каждого товара, отображаемого в админ-панели в модели заказа.
+    """
     order = models.ForeignKey(Order, related_name='items', on_delete=models.PROTECT, verbose_name='Заказ')
     product = models.ForeignKey(Product, related_name='order_items', on_delete=models.PROTECT, verbose_name='Продукт')
     price = models.DecimalField(max_digits=10, decimal_places=2, verbose_name='Цена')

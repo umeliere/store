@@ -8,6 +8,9 @@ from cart.forms import CartAddProductForm
 
 
 class CartAddView(FormView):
+    """
+    Представление для добавления товара в корзину
+    """
     model = Product
     template_name = 'cart/cart.html'
     form_class = CartAddProductForm
@@ -24,7 +27,9 @@ class CartAddView(FormView):
 
 
 class CartRemoveView(DeleteView):
-    model = Product
+    """
+    Представление удаления товара из корзины
+    """
     template_name = 'cart/cart.html'
 
     def get(self, request, *args, **kwargs):
@@ -35,6 +40,9 @@ class CartRemoveView(DeleteView):
 
 
 class CartDetailView(ListView):
+    """
+    Представление корзины пользователя
+    """
     model = Product
     form_class = CartAddProductForm
     template_name = 'cart/cart.html'
@@ -42,6 +50,7 @@ class CartDetailView(ListView):
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
         context['cart'] = Cart(self.request)
+        context['title'] = 'Корзина'
         for item in context['cart']:
             item['update_quantity_form'] = CartAddProductForm(initial={'quantity': item['quantity'], 'update': True})
 

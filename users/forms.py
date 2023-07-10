@@ -6,6 +6,9 @@ from users.models import Profile
 
 
 class UserForm(UserCreationForm):
+    """
+    Форма для регистрации пользователя
+    """
     def __init__(self, *args, **kwargs):
         super(UserForm, self).__init__(*args, **kwargs)
         self.fields['email'].required = True
@@ -15,9 +18,12 @@ class UserForm(UserCreationForm):
         fields = ("username", "first_name", "last_name", "email")
 
 
-class ProfileForm(ModelForm):
+class ProfileUpdateForm(ModelForm):
+    """
+    Форма для смены данных профиля пользователя
+    """
     def __init__(self, *args, **kwargs):
-        super(ProfileForm, self).__init__(*args, **kwargs)
+        super(ProfileUpdateForm, self).__init__(*args, **kwargs)
         self.fields['address'].required = True
         self.fields['phone'].required = True
         self.fields['city'].required = True

@@ -4,11 +4,10 @@ from store import models
 
 
 class Cart(object):
-
+    """
+    Класс для корзины
+    """
     def __init__(self, request):
-        """
-        Инициализируем корзину
-        """
         self.session = request.session
         cart = self.session.get(settings.CART_SESSION_ID)
         if not cart:
@@ -34,7 +33,7 @@ class Cart(object):
 
     def save(self):
         """
-        Обновление сессии cart
+        Обновление сессии корзины
         """
         self.session[settings.CART_SESSION_ID] = self.cart
         self.session.modified = True

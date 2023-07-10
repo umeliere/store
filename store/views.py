@@ -1,93 +1,127 @@
 from django.views.generic import ListView, DetailView
-from store import models
-from cart import forms
+from store.models import Product, Category
+from cart.forms import CartAddProductForm
+from django.db.models import Q
 
 
-# products with some discount
 class ProductsWithDiscountView(ListView):
+    """
+    Представление продуктов с акцией
+    """
     template_name = 'store/discount_page.html'
     context_object_name = 'products'
     paginate_by = 4
-    model = models.Product
+    model = Product
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['title'] = 'Акции'
+        return context
 
     def get_queryset(self):
-        return models.Product.objects.exclude(discount=0)
+        return Product.objects.exclude(Q(discount=0) | Q(is_available=False))
 
 
 class SearchProductsWithDiscountView(ListView):
+    """
+    Представление продуктов с акцией, после поиска
+    """
     template_name = 'store/search_discount_page.html'
     context_object_name = 'products'
     paginate_by = 4
 
-    def get_queryset(self):
-        return models.Product.objects.filter(name__icontains=self.request.GET.get('search')).exclude(discount=0)
-
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
+        context['title'] = "Акции"
         context['search'] = f"search={self.request.GET.get('search')}&"
         return context
 
+    def get_queryset(self):
+        return Product.objects.filter(name__icontains=self.request.GET.get('search')).exclude(
+            Q(discount=0) | Q(is_available=False))
+
 
 class ProductsWithDiscountByCategory(ListView):
+    """
+    Представление продуктов с акцией по определенной категории
+    """
     template_name = 'store/discount_page_by_category.html'
     context_object_name = 'products'
     paginate_by = 4
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['category_name'] = models.Category.objects.get(pk=self.kwargs['pk'])
+        context['title'] = Category.objects.get(pk=self.kwargs['pk'])
         return context
 
     def get_queryset(self):
-        return models.Product.objects.filter(category_id=self.kwargs['pk']).exclude(discount=0)
+        return Product.objects.filter(category_id=self.kwargs['pk']).exclude(
+            Q(discount=0) | Q(is_available=False))
 
 
-# products without any discount
 class ProductsWithoutDiscountView(ListView):
+    """
+    Представление продуктов без акций
+    """
     template_name = 'store/products_page.html'
     context_object_name = 'products'
     paginate_by = 4
-    model = models.Product
+    model = Product
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['title'] = 'Продукты'
+        return context
 
     def get_queryset(self):
-        return models.Product.objects.filter(discount=0)
+        return Product.objects.filter(discount=0, is_available=True)
 
 
 class SearchProductsWithoutDiscountView(ListView):
+    """
+    Представление продуктов без акций после поиска
+    """
     template_name = 'store/search_products_page.html'
     context_object_name = 'products'
     paginate_by = 4
 
     def get_queryset(self):
-        return models.Product.objects.filter(name__icontains=self.request.GET.get('search'), discount=0)
+        return Product.objects.filter(name__icontains=self.request.GET.get('search'), discount=0, is_available=True)
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
+        context['title'] = 'Продукты'
         context['search'] = f"search={self.request.GET.get('search')}&"
         return context
 
 
 class ProductsWithoutDiscountByCategory(ListView):
+    """
+    Представление продуктов без акций по определенной категории
+    """
     template_name = 'store/products_page_by_category.html'
     context_object_name = 'products'
     paginate_by = 2
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['category_name'] = models.Category.objects.get(pk=self.kwargs['pk'])
+        context['title'] = Category.objects.get(pk=self.kwargs['pk'])
         return context
 
     def get_queryset(self):
-        return models.Product.objects.filter(category_id=self.kwargs['pk'], discount=0)
+        return Product.objects.filter(category_id=self.kwargs['pk'], discount=0, is_available=True)
 
 
-# detailed product page
 class ProductDetailView(DetailView):
+    """
+    Представление определенного продукта
+    """
     template_name = 'store/product.html'
-    model = models.Product
+    model = Product
     context_object_name = 'product'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['cart_product_form'] = forms.CartAddProductForm
+        context['title'] = self.object.name
+        context['cart_product_form'] = CartAddProductForm
         return context

@@ -1,16 +1,17 @@
 {% extends 'base.html' %}
 
-{% block title %}Акции{% endblock %}
+{% block title %}{{ title }}{% endblock %}
 {% block content %}
 {% include 'inc/_nav.html' %}
 
 <div>
     <section class="text-center">
+    {% if product.is_available %}
     <div class="row">
         <div class="col-md-4 p-5">
             <div class="card">
                 <div class="view overplay">
-                    <img src="{{ product.photo.url }}" class="card-img-top">
+                    <img src="{{ product.photo.url }}" width="342" height="256" class="card-img-top">
                     <div class="card-body">
                         <h5 class="card-title">{{ product.name }} {{ product.producer }}</h5>
                         {% if product.discount != 0 %}
@@ -30,6 +31,11 @@
             </div>
         </div>
     </div>
+    {% else %}
+        <div class="empty">
+            <h2>Данный товар не доступен в настоящее время.</h2>
+        </div>
+    {% endif %}
     </section>
 </div>
 

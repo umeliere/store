@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 
-{% block title %}Зарегистрироваться{% endblock %}
+{% block title %}{{ title }}{% endblock %}
+
 {% block content %}
 {% load widget_tweaks %}
 
@@ -9,13 +10,6 @@
         <div class="card">
             <div class="card-header">Зарегистрироваться</div>
             <div class="card-body">
-                
-              {% for error in form.errors %}
-                  <div class="alert alert-danger" role="alert">
-                      {{ error|escape }}
-                  </div>
-                {% endfor %}
-
                 <form method="post" action="{% url 'users:signup' %}">
                     {% csrf_token %}
 

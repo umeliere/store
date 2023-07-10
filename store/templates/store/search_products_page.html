@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 
 {% block title %}Продукты{% endblock %}
+
 {% block content %}
 {% include 'inc/_nav.html' %}
 
@@ -14,7 +15,7 @@
             <div class="col-lg-3 col-md-6 md-4 p-2">
                 <div class="card">
                     <div class="view overplay">
-                        <img src="{{ product.photo.url }}" class="card-img-top">
+                        <img src="{{ product.photo.url }}" width="342" height="256" class="card-img-top">
                         <div class="card-body">
                             <h5 class="card-title">{{ product.name|truncatechars:18 }}</h5>
                             <p class="card-text">{{ product.get_discount }} р.</p>

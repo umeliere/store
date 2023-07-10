@@ -3,6 +3,9 @@ from django.urls import reverse_lazy
 
 
 class Product(models.Model):
+    """
+    Модель продукта
+    """
     name = models.CharField(max_length=100, verbose_name='Название товара', unique=True)
     weight = models.FloatField(verbose_name='Масса')
     shelf_time = models.DateField(verbose_name='Срок годности')
@@ -10,6 +13,7 @@ class Product(models.Model):
     photo = models.ImageField(upload_to='uploads/%Y/%m/%d/')
     discount = models.DecimalField(max_digits=5, decimal_places=2, verbose_name='Скидка для товара', default=0,
                                    blank=True)
+    is_available = models.BooleanField(verbose_name='Доступен ли товар?', default=False)
     producer = models.ForeignKey('Producer', on_delete=models.PROTECT)
     category = models.ForeignKey('Category', on_delete=models.PROTECT)
 
@@ -29,6 +33,9 @@ class Product(models.Model):
 
 
 class Producer(models.Model):
+    """
+    Модель производителя продукта
+    """
     name = models.CharField(max_length=50, verbose_name='Производитель товара')
 
     class Meta:
@@ -40,6 +47,9 @@ class Producer(models.Model):
 
 
 class Category(models.Model):
+    """
+    Модель категории продукта
+    """
     name = models.CharField(max_length=50, verbose_name='Название категории')
 
     class Meta:
