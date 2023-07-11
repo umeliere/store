@@ -27,8 +27,7 @@ class ProfileUpdateForm(ModelForm):
         self.fields['address'].required = True
         self.fields['phone'].required = True
         self.fields['city'].required = True
-        self.fields['photo'] = ImageField(required=False, label='Аватар', error_messages={
-            'invalid': ('Только файлы изображений', )}, widget=FileInput)
+        self.fields['photo'] = ImageField(required=False, label='Аватар', widget=FileInput)
 
     class Meta:
         model = Profile

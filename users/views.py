@@ -45,7 +45,6 @@ class ProfilePageView(LoginRequiredMixin, DetailView):
     """
     Представление профиля пользователя
     """
-    login_url = reverse_lazy('users:login')
     queryset = Profile.objects.select_related('user')
     template_name = 'users/profile.html'
     context_object_name = 'profile'
@@ -61,7 +60,6 @@ class ProfileUpdateView(LoginRequiredMixin, UpdateView):
     Представление обновление профиля пользователя
     """
     model = Profile
-    login_url = reverse_lazy('users:login')
     queryset = Profile.objects.select_related('user')
     template_name = 'users/update_profile.html'
     form_class = ProfileUpdateForm

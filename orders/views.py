@@ -25,9 +25,10 @@ class OrderCreateView(LoginRequiredMixin, CreateView):
         return context
 
     def form_valid(self, form):
+        context = self.get_context_data()
         form.instance.user = self.request.user
         order = form.save()
-        cart = Cart(request=True)
+        cart = context['cart']
         for item in cart:
             OrderItem.objects.create(order=order,
                                      product=item['product'],

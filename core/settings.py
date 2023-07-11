@@ -2,6 +2,7 @@ import os
 from pathlib import Path
 
 import environ
+from django.urls import reverse_lazy
 
 env = environ.Env(
     DEBUG=(bool, False)
@@ -151,3 +152,7 @@ EMAIL_HOST_USER = env('EMAIL_HOST_USER')
 DEFAULT_FROM_EMAIL = env('DEFAULT_FROM_EMAIL')
 EMAIL_HOST_PASSWORD = env('EMAIL_HOST_PASSWORD')
 EMAIL_USE_SSL = env('EMAIL_USE_SSL')
+
+
+# Link for @login_required
+LOGIN_URL = reverse_lazy('users:login')

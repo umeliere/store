@@ -1,18 +1,18 @@
 from django.contrib import admin
-from store import models
+from store.models import Product, Producer, Category
 
 
-@admin.register(models.Product)
+@admin.register(Product)
 class ProductAdmin(admin.ModelAdmin):
     search_fields = ('name',)
     list_filter = ('discount',)
 
 
-@admin.register(models.Producer)
+@admin.register(Producer)
 class ProducerAdmin(admin.ModelAdmin):
     pass
 
 
-@admin.register(models.Category)
+@admin.register(Category)
 class CategoryAdmin(admin.ModelAdmin):
     pass

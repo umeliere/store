@@ -43,32 +43,29 @@
             <label for="{{ form.full_name.id_for_label }}">Полное имя</label>
             {% render_field form.full_name|add_class:"form-control" placeholder="Иванов Иван" %}
             <small class="text-muted">Полное имя, расположенное на карте</small>
-            <div class="invalid-feedback">
-              Полное имя на карте обязательное поле
-            </div>
           </div>
           <div class="col-md-6 mb-3">
             <label for="{{ form.cc_number.id_for_label }}">Номер карты</label>
             {% render_field form.cc_number|add_class:"form-control" placeholder="1234 5678 9876 5432" %}
-            <div class="invalid-feedback">
-              Номер карты обязателен
-            </div>
+            {% if form.cc_number.errors %}
+              {{ form.cc_number.errors }}
+            {% endif %}
           </div>
         </div>
         <div class="row">
           <div class="col-md-3 mb-3">
             <label for="{{ form.cc_expiry.id_for_label }}">Срок действия карты</label>
             {% render_field form.cc_expiry|add_class:"form-control" placeholder="12/99" %}
-            <div class="invalid-feedback">
-              Срок действия обязательное поле
-            </div>
+            {% if form.cc_expiry.errors %}
+                {{ form.cc_expiry.errors }}
+            {% endif %}
           </div>
           <div class="col-md-3 mb-3">
             <label for="{{ form.cc_code.id_for_label }}">CVV</label>
             {% render_field form.cc_code|add_class:"form-control" placeholder="123" %}
-            <div class="invalid-feedback">
-              CVV обязательное поле
-            </div>
+            {% if form.cc_code.errors %}
+                {{ form.cc_code.errors }}
+            {% endif %}
           </div>
         </div>
         <hr class="mb-4">

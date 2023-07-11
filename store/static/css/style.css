@@ -46,3 +46,7 @@ a {
 .up {
   vertical-align: 4px;
 }
+
+.errorlist {
+    color: #ff0000;
+}

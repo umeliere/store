@@ -1,6 +1,6 @@
 from decimal import Decimal
 from django.conf import settings
-from store import models
+from store.models import Product
 
 
 class Cart(object):
@@ -52,7 +52,7 @@ class Cart(object):
         Перебор элементов в корзине и получение продуктов из базы данных.
         """
         product_pks = self.cart.keys()
-        products = models.Product.objects.filter(pk__in=product_pks)
+        products = Product.objects.filter(pk__in=product_pks)
         for product in products:
             self.cart[str(product.pk)]['product'] = product
 
