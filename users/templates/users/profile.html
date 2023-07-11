@@ -19,7 +19,7 @@
         <h5 class="my-3">{{ user.first_name }} {{ user.last_name }}</h5>
         <div class="d-flex justify-content-center mb-2">
             <a href="{% url 'cart:cart_detail' %}" type="button" class="btn btn-primary">Корзина</a>
-            <a href="{% url 'users:update_profile' profile.slug %}" type="button" class="btn btn-outline-primary ms-1">Редактировать</a>
+            <a href="{% url 'users:update_profile' %}" type="button" class="btn btn-outline-primary ms-1">Редактировать</a>
         </div>
       </div>
     </div>

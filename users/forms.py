@@ -24,9 +24,6 @@ class ProfileUpdateForm(ModelForm):
     """
     def __init__(self, *args, **kwargs):
         super(ProfileUpdateForm, self).__init__(*args, **kwargs)
-        self.fields['address'].required = True
-        self.fields['phone'].required = True
-        self.fields['city'].required = True
         self.fields['photo'] = ImageField(required=False, label='Аватар', widget=FileInput)
 
     class Meta:

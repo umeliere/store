@@ -32,8 +32,12 @@ class SearchProductsWithDiscountView(ListView):
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['title'] = "Акции"
-        context['search'] = f"search={self.request.GET.get('search')}&"
+        search = self.request.GET.get("search")
+        context['search'] = f"search={search}&"
+        if not search:
+            context["title"] = 'Все товары'
+        else:
+            context['title'] = f'Товары по запросу: {search}'
         return context
 
     def get_queryset(self):
@@ -85,14 +89,18 @@ class SearchProductsWithoutDiscountView(ListView):
     context_object_name = 'products'
     paginate_by = 4
 
-    def get_queryset(self):
-        return Product.objects.filter(name__icontains=self.request.GET.get('search'), discount=0, is_available=True)
-
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['title'] = 'Продукты'
-        context['search'] = f"search={self.request.GET.get('search')}&"
+        search = self.request.GET.get("search")
+        context['search'] = f"search={search}&"
+        if not search:
+            context["title"] = 'Все товары'
+        else:
+            context['title'] = f'Товары по запросу: {search}'
         return context
+
+    def get_queryset(self):
+        return Product.objects.filter(name__icontains=self.request.GET.get('search'), discount=0, is_available=True)
 
 
 class ProductsWithoutDiscountByCategory(ListView):
@@ -101,7 +109,7 @@ class ProductsWithoutDiscountByCategory(ListView):
     """
     template_name = 'store/products_page_by_category.html'
     context_object_name = 'products'
-    paginate_by = 2
+    paginate_by = 4
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)

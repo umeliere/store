@@ -64,6 +64,9 @@ class ProfileUpdateView(LoginRequiredMixin, UpdateView):
     template_name = 'users/update_profile.html'
     form_class = ProfileUpdateForm
 
+    def get_object(self, queryset=None):
+        return self.request.user.profile
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['title'] = f'Обновление страницы'
