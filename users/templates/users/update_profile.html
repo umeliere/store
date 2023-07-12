@@ -53,9 +53,8 @@
                         </button>
                     </div>
 
-                    <a href="{% url 'users:profile' profile.slug %}" class="btn btn-link">
-                        Вернуться назад
-                    </a>
+                    <a href="{% url 'users:profile' profile.slug %}" class="btn btn-link">Вернуться назад</a>
+                    <a href="{% url 'users:password_change' %}" class="btn btn-link">Изменить пароль</a>
                 </form>
             </div>
         </div>

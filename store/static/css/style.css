@@ -3,7 +3,7 @@ a {
     text-decoration: none;
 }
 
-.password__reset__button, .password__reset__button {
+.password__reset__button, .password__reset__button, .change-password-button {
     margin-top: 12px;
 }
 
