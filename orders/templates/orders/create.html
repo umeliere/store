@@ -3,7 +3,6 @@
 {% block title %}{{ title }}{% endblock %}
 
 {% block content %}
-{% include 'inc/_nav.html' %}
 {% load widget_tweaks %}
 
 {% if request.user.profile.phone %}
@@ -83,8 +82,5 @@
     </div>
   </section>
 {% endif %}
-{% endblock %}
 
-{% block footer %}
-{% include 'inc/_footer.html' %}
 {% endblock %}
