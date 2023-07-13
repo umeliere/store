@@ -1,6 +1,7 @@
 from captcha.fields import ReCaptchaField
 from captcha.widgets import ReCaptchaV2Checkbox
-from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
+from django.contrib.auth.forms import UserCreationForm, AuthenticationForm, PasswordChangeForm, PasswordResetForm, \
+    SetPasswordForm
 from django.contrib.auth.models import User
 from django.forms import ModelForm, FileInput, ImageField
 
@@ -33,9 +34,45 @@ class UserLoginForm(AuthenticationForm):
     recaptcha = ReCaptchaField(widget=ReCaptchaV2Checkbox, public_key=settings.RECAPTCHA_PUBLIC_KEY,
                                private_key=settings.RECAPTCHA_PRIVATE_KEY, label='ReCAPTCHA')
 
-    class Meta(UserCreationForm.Meta):
+    class Meta:
         model = User
         fields = ("username", 'password', 'recaptcha')
+
+
+class UserPasswordChangeForm(PasswordChangeForm):
+    """
+    Форма изменения пароля
+    """
+    recaptcha = ReCaptchaField(widget=ReCaptchaV2Checkbox, public_key=settings.RECAPTCHA_PUBLIC_KEY,
+                               private_key=settings.RECAPTCHA_PRIVATE_KEY, label='ReCAPTCHA')
+
+    class Meta:
+        model = User
+        fields = ('old_password', 'new_password1', 'new_password2', 'recaptcha')
+
+
+class UserForgotPasswordForm(PasswordResetForm):
+    """
+    Запрос на восстановление пароля
+    """
+    recaptcha = ReCaptchaField(widget=ReCaptchaV2Checkbox, public_key=settings.RECAPTCHA_PUBLIC_KEY,
+                               private_key=settings.RECAPTCHA_PRIVATE_KEY, label='ReCAPTCHA')
+
+    class Meta:
+        model = User
+        fields = ('email', 'recaptcha')
+
+
+class UserSetNewPasswordForm(SetPasswordForm):
+    """
+    Изменение пароля пользователя после подтверждения
+    """
+    recaptcha = ReCaptchaField(widget=ReCaptchaV2Checkbox, public_key=settings.RECAPTCHA_PUBLIC_KEY,
+                               private_key=settings.RECAPTCHA_PRIVATE_KEY, label='ReCAPTCHA')
+
+    class Meta:
+        model = User
+        fields = ('user', 'new_password1', 'new_password2', 'recaptcha')
 
 
 class ProfileUpdateForm(ModelForm):
