@@ -1,5 +1,6 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.views import LoginView, LogoutView
+from django.contrib.messages.views import SuccessMessageMixin
 from django.views.generic import DetailView
 
 from users.forms import UserForm, ProfileUpdateForm
@@ -10,13 +11,14 @@ from django.contrib import messages
 from users.models import Profile
 
 
-class SignUpView(CreateView):
+class SignUpView(SuccessMessageMixin, CreateView):
     """
     Представление регистрации пользователя
     """
     form_class = UserForm
     success_url = reverse_lazy('users:login')
     template_name = 'users/signup.html'
+    success_message = 'Вы успешно зарегистрировались.'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -24,12 +26,13 @@ class SignUpView(CreateView):
         return context
 
 
-class MyLoginView(LoginView):
+class MyLoginView(SuccessMessageMixin, LoginView):
     """
     Представление входа пользователя
     """
     template_name = 'users/login.html'
     next_page = reverse_lazy('store:discount_page')
+    success_message = 'Вы успешно вошли.'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -55,7 +58,7 @@ class ProfilePageView(LoginRequiredMixin, DetailView):
         return context
 
 
-class ProfileUpdateView(LoginRequiredMixin, UpdateView):
+class ProfileUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     """
     Представление обновление профиля пользователя
     """
@@ -63,6 +66,7 @@ class ProfileUpdateView(LoginRequiredMixin, UpdateView):
     queryset = Profile.objects.select_related('user')
     template_name = 'users/update_profile.html'
     form_class = ProfileUpdateForm
+    success_message = 'Вы успешно изменили данные'
 
     def get_object(self, queryset=None):
         return self.request.user.profile
