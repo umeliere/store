@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'cart',
     'orders',
     'widget_tweaks',
+    'captcha',
 ]
 
 MIDDLEWARE = [
@@ -153,6 +154,11 @@ EMAIL_HOST_USER = env('EMAIL_HOST_USER')
 DEFAULT_FROM_EMAIL = env('DEFAULT_FROM_EMAIL')
 EMAIL_HOST_PASSWORD = env('EMAIL_HOST_PASSWORD')
 EMAIL_USE_SSL = env('EMAIL_USE_SSL')
+
+
+# Connecting to ReCaptcha
+RECAPTCHA_PUBLIC_KEY = env('RECAPTCHA_PUBLIC_KEY')
+RECAPTCHA_PRIVATE_KEY = env('RECAPTCHA_PRIVATE_KEY')
 
 
 # Link for @login_required

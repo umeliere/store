@@ -3,7 +3,7 @@ from django.contrib.auth.views import LoginView, LogoutView
 from django.contrib.messages.views import SuccessMessageMixin
 from django.views.generic import DetailView
 
-from users.forms import UserForm, ProfileUpdateForm
+from users.forms import UserRegisterForm, UserLoginForm, ProfileUpdateForm
 from django.urls import reverse_lazy
 from django.views.generic.edit import CreateView, UpdateView
 from django.contrib import messages
@@ -15,7 +15,7 @@ class SignUpView(SuccessMessageMixin, CreateView):
     """
     Представление регистрации пользователя
     """
-    form_class = UserForm
+    form_class = UserRegisterForm
     success_url = reverse_lazy('users:login')
     template_name = 'users/signup.html'
     success_message = 'Вы успешно зарегистрировались.'
@@ -30,6 +30,7 @@ class MyLoginView(SuccessMessageMixin, LoginView):
     """
     Представление входа пользователя
     """
+    form_class = UserLoginForm
     template_name = 'users/login.html'
     next_page = reverse_lazy('store:discount_page')
     success_message = 'Вы успешно вошли.'
@@ -38,10 +39,6 @@ class MyLoginView(SuccessMessageMixin, LoginView):
         context = super().get_context_data(**kwargs)
         context['title'] = 'Вход'
         return context
-
-    def form_invalid(self, form):
-        messages.error(self.request, 'Invalid username or password')
-        return self.render_to_response(self.get_context_data(form=form))
 
 
 class ProfilePageView(LoginRequiredMixin, DetailView):
