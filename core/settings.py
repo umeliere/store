@@ -161,5 +161,11 @@ RECAPTCHA_PUBLIC_KEY = env('RECAPTCHA_PUBLIC_KEY')
 RECAPTCHA_PRIVATE_KEY = env('RECAPTCHA_PRIVATE_KEY')
 
 
+# advanced authorization features
+AUTHENTICATION_BACKENDS = [
+    'users.backends.UserModelBackend',
+]
+
+
 # Link for @login_required
 LOGIN_URL = reverse_lazy('users:login')

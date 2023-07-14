@@ -3,6 +3,7 @@ from captcha.widgets import ReCaptchaV2Checkbox
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm, PasswordChangeForm, PasswordResetForm, \
     SetPasswordForm
 from django.contrib.auth.models import User
+from django.core.exceptions import ValidationError
 from django.forms import ModelForm, FileInput, ImageField
 
 from core import settings
@@ -21,6 +22,16 @@ class UserRegisterForm(UserCreationForm):
         self.fields['email'].required = True
         self.fields["first_name"].required = True
         self.fields["last_name"].required = True
+
+    def clean_email(self):
+        """
+        Проверка email на уникальность
+        """
+        email = self.cleaned_data.get('email')
+        username = self.cleaned_data.get('username')
+        if email and User.objects.filter(email=email).exclude(username=username).exists():
+            raise ValidationError('Такой email уже используется')
+        return email
 
     class Meta(UserCreationForm.Meta):
         model = User
