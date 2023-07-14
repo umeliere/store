@@ -1,3 +1,4 @@
+from django.shortcuts import render
 from django.views.generic import ListView, DetailView
 from store.models import Product, Category
 from cart.forms import CartAddProductForm
@@ -133,3 +134,36 @@ class ProductDetailView(DetailView):
         context['title'] = self.object.name
         context['cart_product_form'] = CartAddProductForm
         return context
+
+
+def handler404(request, exception):
+    """
+    Обработка ошибки 404
+    """
+    context = {
+        'title': 'Страница не найдена: 404',
+        'error_message': 'К сожалению такая страница была не найдена, или перемещена',
+    }
+    return render(request=request, template_name='error/error_page.html', status=404, context=context)
+
+
+def handler500(request):
+    """
+    Обработка ошибки 500
+    """
+    context = {
+        'title': 'Ошибка сервера: 500',
+        'error_message': 'Внутренняя ошибка сайта, вернитесь на главную страницу сайта'
+    }
+    return render(request=request, template_name='error/error_page.html', status=500, context=context)
+
+
+def handler403(request, exception):
+    """
+    Обработка ошибки 403
+    """
+    context = {
+        'title': 'Ошибка доступа: 403',
+        'error_message': 'Доступ к этой странице ограничен',
+    }
+    return render(request=request, template_name='error/error_page.html', status=403, context=context)

@@ -3,6 +3,10 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path, include
 
+handler403 = 'store.views.handler403'
+handler404 = 'store.views.handler404'
+handler500 = 'store.views.handler500'
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('cart/', include('cart.urls', namespace='cart')),
