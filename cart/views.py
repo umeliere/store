@@ -21,7 +21,7 @@ class CartDetailView(LoginRequiredMixin, ListView):
         context['title'] = 'Корзина'
         if Cart.objects.filter(user=self.request.user):
             context['cart'] = Cart.objects.get(user=self.request.user)
-            context['items'] = context['cart'].cartitem_set.all()
+            context['items'] = context['cart'].cartitem_set.all().select_related('product')
             context['get_total_discount'] = context['cart'].get_total_discount(context['cart'])
             try:
                 context['get_total_cost'] = context['cart'].get_total_cost(

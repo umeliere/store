@@ -26,7 +26,7 @@ class OrderCreateView(LoginRequiredMixin, CreateView):
                 context['cart']) - context['cart'].get_total_discount(context['cart'])
         except TypeError:
             context['get_total_cost'] = context['cart'].get_total_cost(context['cart'])
-        context['items'] = context['cart'].cartitem_set.all()
+        context['items'] = context['cart'].cartitem_set.all().select_related('product')
         return context
 
     def form_valid(self, form):

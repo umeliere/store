@@ -40,7 +40,8 @@ class Cart(models.Model):
             (F('product__price') * F('product__discount') / 100) * F('quantity')))['total_cost']
         return queryset
 
-    def get_total_cost(self, cart):
+    @classmethod
+    def get_total_cost(cls, cart):
         """
         Метод для возврата полной суммы корзины покупателя
         """
