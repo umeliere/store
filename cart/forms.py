@@ -1,13 +1,17 @@
 from django import forms
+from cart.models import CartItem
 
-PRODUCT_QUANTITY_CHOICES = [(i, str(i)) for i in range(1, 100)]
 
-
-class CartAddProductForm(forms.Form):
+class CartAddProductForm(forms.ModelForm):
     """
     Форма для управления количеством товара
     """
-    quantity = forms.TypedChoiceField(choices=PRODUCT_QUANTITY_CHOICES, coerce=int, label='Количество товара')
     update = forms.BooleanField(required=False, initial=False, widget=forms.HiddenInput)
 
-    quantity.widget.attrs.update({'class': 'form-control'})
+    class Meta:
+        model = CartItem
+        fields = ('quantity',)
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['quantity'].widget.attrs.update({'class': 'form-control'})

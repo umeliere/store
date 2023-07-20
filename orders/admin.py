@@ -5,6 +5,8 @@ from orders.models import Order, OrderItem
 class OrderItemInline(admin.TabularInline):
     model = OrderItem
     raw_id_fields = ['product']
+    can_delete = False
+    max_num = 0
 
 
 @admin.register(Order)
@@ -13,7 +15,7 @@ class OrderAdmin(admin.ModelAdmin):
     list_display = ('id', 'user', 'created', 'updated', 'full_name', 'cc_number', 'cc_expiry', 'cc_code',
                     'get_total_cost')
     list_filter = ('paid', 'created', 'updated')
-    inlines = [OrderItemInline]
+    inlines = (OrderItemInline,)
 
     @admin.display(description='Итоговая цена заказа')
     def get_total_cost(self, obj):

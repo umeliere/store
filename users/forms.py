@@ -99,4 +99,4 @@ class ProfileUpdateForm(ModelForm):
 
     class Meta:
         model = Profile
-        fields = ("address", "phone", "city", "photo")
+        fields = ("address", "phone", "city", "photo", 'recaptcha')

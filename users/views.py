@@ -136,7 +136,8 @@ class ProfileUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     def form_valid(self, form):
         context = self.get_context_data()
         profile_form = context['profile_form']
-        profile_form.save()
+        if profile_form.is_valid():
+            profile_form.save()
         return super(ProfileUpdateView, self).form_valid(form)
 
     def get_success_url(self):

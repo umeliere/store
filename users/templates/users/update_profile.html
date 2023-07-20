@@ -45,6 +45,15 @@
                             {% endif %}
                         </div>
                     </div>
+                    <div class="form-group row">
+                      <label for="{{ profile_form.recaptcha.id_for_label }}" class="col-md-4 col-form-label text-md-right">ReCAPTCHA<span class="required">*</span></label>
+                      <div class="col-md-6 m-2">
+                          {{ profile_form.recaptcha }}
+                          {% if profile_form.recaptcha.errors %}
+                              {{ profile_form.recaptcha.errors }}
+                          {% endif %}
+                      </div>
+                    </div>
 
                     <div class="col-md-6 offset-md-4">
                         <button type="submit" class="btn btn-primary">

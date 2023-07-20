@@ -14,7 +14,7 @@
           <span class="text-muted">Ваша корзина</span>
         </h4>
         <ul class="list-group mb-3">
-          {% for item in cart %}
+          {% for item in items %}
           <li class="list-group-item d-flex justify-content-between lh-condensed">
             <div>
               <h6 class="my-0">{{ item.product.name }}</h6>
@@ -29,7 +29,7 @@
           {% endfor %}
           <li class="list-group-item d-flex justify-content-between">
             <span>Итог</span>
-            <strong>{{ cart.get_total_price }} р.</strong>
+            <strong>{{ get_total_cost }} р.</strong>
           </li>
         </ul>
       </div>
@@ -78,7 +78,7 @@
     <div class="empty">
       <h3>В данный момент вы не указали свои персональные данные, такие как: Номер, Адрес, Город.</h3>
       <h4>Пожалуйста, перейдите в профиль и заполните свои персональные данные</h4>
-       <a type="button" href="{% url 'users:profile' request.user.profile.slug %}" class="btn btn-primary">Профиль</a>
+       <a type="button" href="{% url 'users:profile' request.user.profile.slug %}" class="btn btn-primary btn-lg">Перейти в профиль</a>
     </div>
   </section>
 {% endif %}

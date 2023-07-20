@@ -28,9 +28,12 @@ class Order(models.Model):
         return f'Заказ {self.pk}'
 
     def get_total_cost(self):
-        queryset = OrderItem.objects.filter(order=self.pk).aggregate(total_cost=Sum(F('price') * F('quantity')))
-        number = [str(key) for item, key in queryset.items()]
-        return f'{number[0]} р.'
+        """
+        Метод, возвращающий общую цену заказа
+        """
+        queryset = OrderItem.objects.filter(order=self.pk).aggregate(total_cost=Sum(F('price') * F('quantity')))[
+            "total_cost"]
+        return f'{queryset} р.'
 
 
 class OrderItem(models.Model):

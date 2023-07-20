@@ -25,7 +25,9 @@ class Product(models.Model):
         return self.name
 
     def get_discount(self):
-        """Рассчитать стоимость со скидкой"""
+        """
+        Рассчитать стоимость со скидкой
+        """
         return round(self.price * (100 - self.discount) / 100, 2)
 
     def get_absolute_url(self):

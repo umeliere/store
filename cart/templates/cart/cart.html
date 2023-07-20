@@ -13,7 +13,7 @@
           <h3 class="fw-normal mb-0 text-black">Корзина покупок</h3>
         </div>
 
-        {% for item in cart %}
+        {% for item in items %}
           {% with product=item.product %}
             <div class="card rounded-3 mb-4">
               <div class="card-body p-4">
@@ -25,7 +25,7 @@
                   </div>
                   <div class="col-md-3 col-lg-3 col-xl-3">
                     <p class="lead fw-normal mb-2">{{ product.name }}</p>
-                    <p><span class="text-muted">Итоговый вес: </span>{{ item.total_weight|floatformat:2 }} кг.<br><span class="text-muted">{% if product.discount != 0 %}Скидка: </span>{{ product.discount }} %.{% endif %}</p>
+                    <p><span class="text-muted">Итоговый вес: </span>{{ item.total_weight }} кг.<br><span class="text-muted">{% if product.discount != 0 %}Скидка: </span>{{ product.discount }} %.{% endif %}</p>
                   </div>
                   <div class="col-md-3 col-lg-3 col-xl-2 d-flex">
                     <form action="{% url 'cart:cart_add' product.pk %}" method="post">
@@ -36,7 +36,7 @@
                     </form>
                   </div>
                   <div class="col-md-3 col-lg-2 col-xl-2 offset-lg-1">
-                    <h5 class="mb-0">{{ item.total_price }} р.</h5>
+                    <h5 class="mb-0">{{ item.total_cost }} р.</h5>
                   </div>
                   <div class="col-md-1 col-lg-1 col-xl-1 text-end">
                     <a href="{% url 'cart:cart_remove' product.pk %}" class="text-danger"><i class="fas fa-trash fa-lg"></i></a>
@@ -45,24 +45,29 @@
               </div>
             </div>
           {% endwith %}
+        {% empty %}
+        <div class="empty text-center">
+              <h2>Ваша корзина пустая в данный момент.</h2>
+          </div>
         {% endfor %}
 
+        {% if items %}
         <div class="card mb-5">
           <div class="card-body p-4">
             <div class="float-end">
               <p class="mb-0 me-5 d-flex align-items-center">
                 <span class="small text-muted me-2">Итоговая цена:</span> <span
-                  class="lead fw-normal">{{ cart.get_total_price }} р.</span>
+                  class="lead fw-normal">{{ get_total_cost|floatformat:2 }} р.</span>
               </p>
             </div>
-            {% if cart.get_total_discount != 0 %}
+
             <div class="float-end">
               <p class="mb-0 me-5 d-flex align-items-center">
                 <span class="small text-muted me-2">Скидка:</span> <span
-                  class="lead fw-normal">{{ cart.get_total_discount }} р.</span>
+                  class="lead fw-normal">{{ get_total_discount|floatformat:2 }} р.</span>
               </p>
             </div>
-            {% endif %}
+
           </div>
         </div>
 
@@ -71,6 +76,11 @@
           <a href='{% url "orders:order_create" %}' class="btn btn-primary btn-lg">Перейти к покупке</a>
         </div>
 
+        {% else %}
+        <div class="d-flex justify-content-end">
+          <a href="{% url 'store:discount_page' %}" class="btn btn-light btn-lg me-2">Продолжить покупки</a>
+        </div>
+        {% endif %}
       </div>
     </div>
   </div>
