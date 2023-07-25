@@ -7,7 +7,7 @@ from django.template.defaultfilters import slugify
 
 class Profile(models.Model):
     """
-    Модель профиля пользователя
+    the user profile form
     """
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     photo = models.ImageField(upload_to='uploads/%Y/%m/%d/', blank=True, verbose_name="Аватар")

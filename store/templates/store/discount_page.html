@@ -29,7 +29,7 @@
                         <img src="{{ product.photo.url }}" width="342" height="256" class="card-img-top">
                         <div class="card-body">
                             <h5 class="card-title">{{ product.name|truncatechars:18 }}</h5>
-                            <p class="card-text"><span class="up"><s>{{ product.price }}</s></span> {{ product.get_discount }} р.</p>
+                            <p class="card-text"><span class="up"><s>{{ product.price }}</s></span> {{ product.get_discount|floatformat:2 }} р.</p>
                             <form action="{% url 'cart:cart_add' product.pk %}" method="post">
                             {% csrf_token %}
                             <input type="hidden" name="quantity" value="1" required id="id_quantity"/>

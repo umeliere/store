@@ -8,7 +8,7 @@ from users.forms import User
 
 class Order(models.Model):
     """
-    Модель заказа, отображаемого в админ-панели
+    the model for the user order
     """
     user = models.ForeignKey(User, on_delete=models.PROTECT, editable=False, verbose_name='Пользователь')
     full_name = models.CharField(max_length=100, verbose_name='Полное имя на карте')
@@ -29,7 +29,7 @@ class Order(models.Model):
 
     def get_total_cost(self):
         """
-        Метод, возвращающий общую цену заказа
+        the method, that counts the total cost of the order
         """
         queryset = OrderItem.objects.filter(order=self.pk).aggregate(total_cost=Sum(F('price') * F('quantity')))[
             "total_cost"]
@@ -38,7 +38,7 @@ class Order(models.Model):
 
 class OrderItem(models.Model):
     """
-    Модель каждого товара, отображаемого в админ-панели в модели заказа.
+    the model for the instance of the user order
     """
     order = models.ForeignKey(Order, related_name='items', on_delete=models.PROTECT, verbose_name='Заказ')
     product = models.ForeignKey(Product, related_name='order_items', on_delete=models.PROTECT, verbose_name='Продукт')

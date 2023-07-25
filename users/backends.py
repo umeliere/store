@@ -1,5 +1,4 @@
 from django.contrib.auth.backends import ModelBackend, get_user_model
-from django.core.exceptions import MultipleObjectsReturned
 from django.db.models import Q
 
 UserModel = get_user_model()
@@ -7,7 +6,7 @@ UserModel = get_user_model()
 
 class UserModelBackend(ModelBackend):
     """
-    Переопределение авторизации
+    the class that allows to log in using the email and the login
     """
 
     def authenticate(self, request, username=None, password=None, **kwargs):

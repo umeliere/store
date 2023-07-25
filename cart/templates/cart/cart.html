@@ -25,7 +25,9 @@
                   </div>
                   <div class="col-md-3 col-lg-3 col-xl-3">
                     <p class="lead fw-normal mb-2">{{ product.name }}</p>
-                    <p><span class="text-muted">Итоговый вес: </span>{{ item.total_weight }} кг.<br><span class="text-muted">{% if product.discount != 0 %}Скидка: </span>{{ product.discount }} %.{% endif %}</p>
+                    <p><span class="text-muted">Итоговый вес: </span>{{ item.total_weight|floatformat:2 }} кг.<br>
+                      <span class="text-muted">{% if product.discount != 0 %}Скидка:</span>{{ product.discount|floatformat:2 }} %.{% endif %}
+                    </p>
                   </div>
                   <div class="col-md-3 col-lg-3 col-xl-2 d-flex">
                     <form action="{% url 'cart:cart_add' product.pk %}" method="post">
@@ -36,7 +38,7 @@
                     </form>
                   </div>
                   <div class="col-md-3 col-lg-2 col-xl-2 offset-lg-1">
-                    <h5 class="mb-0">{{ item.total_cost }} р.</h5>
+                    <h5 class="mb-0">{{ item.total_cost|floatformat:2 }} р.</h5>
                   </div>
                   <div class="col-md-1 col-lg-1 col-xl-1 text-end">
                     <a href="{% url 'cart:cart_remove' product.pk %}" class="text-danger"><i class="fas fa-trash fa-lg"></i></a>
@@ -47,8 +49,8 @@
           {% endwith %}
         {% empty %}
         <div class="empty text-center">
-              <h2>Ваша корзина пустая в данный момент.</h2>
-          </div>
+            <h2>Ваша корзина пустая в данный момент.</h2>
+        </div>
         {% endfor %}
 
         {% if items %}

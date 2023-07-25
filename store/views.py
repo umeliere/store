@@ -7,11 +7,11 @@ from django.db.models import Q
 
 class ProductsWithDiscountView(ListView):
     """
-    Представление продуктов с акцией
+    the products with the discount view
     """
     template_name = 'store/discount_page.html'
     context_object_name = 'products'
-    paginate_by = 4
+    paginate_by = 12
     model = Product
 
     def get_context_data(self, **kwargs):
@@ -25,11 +25,11 @@ class ProductsWithDiscountView(ListView):
 
 class SearchProductsWithDiscountView(ListView):
     """
-    Представление продуктов с акцией, после поиска
+    the products with the discount after the search view
     """
     template_name = 'store/search_discount_page.html'
     context_object_name = 'products'
-    paginate_by = 4
+    paginate_by = 12
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -48,11 +48,11 @@ class SearchProductsWithDiscountView(ListView):
 
 class ProductsWithDiscountByCategory(ListView):
     """
-    Представление продуктов с акцией по определенной категории
+    the products with the discount filtered by the categories view
     """
     template_name = 'store/discount_page_by_category.html'
     context_object_name = 'products'
-    paginate_by = 4
+    paginate_by = 12
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -66,11 +66,11 @@ class ProductsWithDiscountByCategory(ListView):
 
 class ProductsWithoutDiscountView(ListView):
     """
-    Представление продуктов без акций
+    the products without any discount view
     """
     template_name = 'store/products_page.html'
     context_object_name = 'products'
-    paginate_by = 4
+    paginate_by = 12
     model = Product
 
     def get_context_data(self, **kwargs):
@@ -84,11 +84,11 @@ class ProductsWithoutDiscountView(ListView):
 
 class SearchProductsWithoutDiscountView(ListView):
     """
-    Представление продуктов без акций после поиска
+    the products without any discount after the search view
     """
     template_name = 'store/search_products_page.html'
     context_object_name = 'products'
-    paginate_by = 4
+    paginate_by = 12
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -106,11 +106,11 @@ class SearchProductsWithoutDiscountView(ListView):
 
 class ProductsWithoutDiscountByCategory(ListView):
     """
-    Представление продуктов без акций по определенной категории
+    the products without any discount filtered by the categories view
     """
     template_name = 'store/products_page_by_category.html'
     context_object_name = 'products'
-    paginate_by = 4
+    paginate_by = 12
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -123,7 +123,7 @@ class ProductsWithoutDiscountByCategory(ListView):
 
 class ProductDetailView(DetailView):
     """
-    Представление определенного продукта
+    the product detail view
     """
     template_name = 'store/product.html'
     model = Product
@@ -138,7 +138,7 @@ class ProductDetailView(DetailView):
 
 def handler404(request, exception):
     """
-    Обработка ошибки 404
+    404 error view
     """
     context = {
         'title': 'Страница не найдена: 404',
@@ -149,7 +149,7 @@ def handler404(request, exception):
 
 def handler500(request):
     """
-    Обработка ошибки 500
+    500 error view
     """
     context = {
         'title': 'Ошибка сервера: 500',
@@ -160,7 +160,7 @@ def handler500(request):
 
 def handler403(request, exception):
     """
-    Обработка ошибки 403
+    403 error view
     """
     context = {
         'title': 'Ошибка доступа: 403',

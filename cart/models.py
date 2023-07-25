@@ -2,12 +2,11 @@ from django.contrib.auth.models import User
 from django.db import models
 from django.db.models import Sum, F
 from store.models import Product
-from django.core.exceptions import ObjectDoesNotExist
 
 
 class Cart(models.Model):
     """
-    Модель для корзины покупателя
+    the model for the user cart
     """
     user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='Пользователь')
     created = models.DateTimeField(auto_now_add=True, verbose_name='Дата создания')
@@ -20,21 +19,9 @@ class Cart(models.Model):
         return f'Корзина пользователя {self.user}'
 
     @classmethod
-    def get_card(cls, user):
-        """
-        Метод для возврата корзины, если корзина не найдена, то она создается
-        """
-        try:
-            cart = Cart.objects.get(user=user)
-        except ObjectDoesNotExist:
-            cart = Cart.objects.create(user=user)
-
-        return cart
-
-    @classmethod
     def get_total_discount(cls, cart):
         """
-        Метод для возврата полной суммы скидки корзины покупателя
+        the method, that counts the total discount of the cart
         """
         queryset = CartItem.objects.filter(cart=cart).aggregate(total_cost=Sum(
             (F('product__price') * F('product__discount') / 100) * F('quantity')))['total_cost']
@@ -43,7 +30,7 @@ class Cart(models.Model):
     @classmethod
     def get_total_cost(cls, cart):
         """
-        Метод для возврата полной суммы корзины покупателя
+        the method, that counts the total cost of the cart
         """
         queryset = CartItem.objects.filter(cart=cart).aggregate(
             total_cost=Sum(F('product__price') * F('quantity')))['total_cost']
@@ -53,10 +40,10 @@ class Cart(models.Model):
 
 class CartItem(models.Model):
     """
-    Модель - единица для корзины покупателя
+    the model for the instance of the user cart
     """
     cart = models.ForeignKey(Cart, on_delete=models.CASCADE)
-    quantity = models.PositiveSmallIntegerField(default=1, verbose_name='Количество')
+    quantity = models.PositiveSmallIntegerField(default=0, verbose_name='Количество')
     product = models.ForeignKey(Product, on_delete=models.CASCADE, verbose_name='Продукт')
 
     class Meta:
@@ -68,12 +55,12 @@ class CartItem(models.Model):
 
     def total_cost(self):
         """
-        Метод для возврата общей цены одного продукта
+        the method, that counts the total cost of the user cart instance
         """
         return self.product.get_discount() * self.quantity
 
     def total_weight(self):
         """
-        Метод для возврата общего веса продукта
+        the method, that counts the total weight of the user cart instance
         """
         return self.product.weight * self.quantity

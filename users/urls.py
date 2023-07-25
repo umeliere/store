@@ -22,10 +22,10 @@ urlpatterns = [
     path('logout/', LogoutView.as_view(next_page='store:discount_page'), name='logout'),
     path('profile/edit/', ProfileUpdateView.as_view(), name='update_profile'),
     path('profile/<str:slug>/', ProfilePageView.as_view(), name='profile'),
-    # представления смены пароля
+    # change the password views
     path('password_change/', UserPasswordChangeView.as_view(), name='password_change'),
     path('password_change/done/', PasswordChangeDoneView.as_view(), name='password_change_done'),
-    # представления сброса пароля
+    # reset the password views
     path('password_reset/', UserPasswordResetView.as_view(), name='password_reset'),
     path('password_reset/done/', PasswordResetDoneView.as_view(), name='password_reset_done'),
     path('reset/<uidb64>/<token>/', UserPasswordSetView.as_view(), name='password_reset_confirm'),

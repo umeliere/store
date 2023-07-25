@@ -12,7 +12,7 @@ from users.models import Profile
 
 class UserRegisterForm(UserCreationForm):
     """
-    Форма для регистрации пользователя
+    sign up form
     """
     recaptcha = ReCaptchaField(widget=ReCaptchaV2Checkbox, public_key=settings.RECAPTCHA_PUBLIC_KEY,
                                private_key=settings.RECAPTCHA_PRIVATE_KEY, label='ReCAPTCHA')
@@ -25,7 +25,7 @@ class UserRegisterForm(UserCreationForm):
 
     def clean_email(self):
         """
-        Проверка email на уникальность
+        check the email for uniqueness
         """
         email = self.cleaned_data.get('email')
         username = self.cleaned_data.get('username')
@@ -40,7 +40,7 @@ class UserRegisterForm(UserCreationForm):
 
 class UserLoginForm(AuthenticationForm):
     """
-    Форма авторизации на сайте
+    log in form
     """
     recaptcha = ReCaptchaField(widget=ReCaptchaV2Checkbox, public_key=settings.RECAPTCHA_PUBLIC_KEY,
                                private_key=settings.RECAPTCHA_PRIVATE_KEY, label='ReCAPTCHA')
@@ -52,7 +52,7 @@ class UserLoginForm(AuthenticationForm):
 
 class UserPasswordChangeForm(PasswordChangeForm):
     """
-    Форма изменения пароля
+    change the password form
     """
     recaptcha = ReCaptchaField(widget=ReCaptchaV2Checkbox, public_key=settings.RECAPTCHA_PUBLIC_KEY,
                                private_key=settings.RECAPTCHA_PRIVATE_KEY, label='ReCAPTCHA')
@@ -64,7 +64,7 @@ class UserPasswordChangeForm(PasswordChangeForm):
 
 class UserForgotPasswordForm(PasswordResetForm):
     """
-    Запрос на восстановление пароля
+    reset the password form
     """
     recaptcha = ReCaptchaField(widget=ReCaptchaV2Checkbox, public_key=settings.RECAPTCHA_PUBLIC_KEY,
                                private_key=settings.RECAPTCHA_PRIVATE_KEY, label='ReCAPTCHA')
@@ -76,7 +76,7 @@ class UserForgotPasswordForm(PasswordResetForm):
 
 class UserSetNewPasswordForm(SetPasswordForm):
     """
-    Изменение пароля пользователя после подтверждения
+    reset the password after the confirmation form
     """
     recaptcha = ReCaptchaField(widget=ReCaptchaV2Checkbox, public_key=settings.RECAPTCHA_PUBLIC_KEY,
                                private_key=settings.RECAPTCHA_PRIVATE_KEY, label='ReCAPTCHA')
@@ -88,7 +88,7 @@ class UserSetNewPasswordForm(SetPasswordForm):
 
 class ProfileUpdateForm(ModelForm):
     """
-    Форма для смены данных профиля пользователя
+    the user profile update form
     """
     recaptcha = ReCaptchaField(widget=ReCaptchaV2Checkbox, public_key=settings.RECAPTCHA_PUBLIC_KEY,
                                private_key=settings.RECAPTCHA_PRIVATE_KEY, label='ReCAPTCHA')

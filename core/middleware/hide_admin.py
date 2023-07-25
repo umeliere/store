@@ -8,7 +8,7 @@ logger = logging.getLogger(__name__)
 
 class RestrictStaffToAdminMiddleware:
     """
-    Middleware, который запрещает обычным пользователям заходить в админ-панель и разрешает сотрудникам.
+    A middleware that restricts staff members access to administration panels.
     """
     def __init__(self, get_response):
         self.get_response = get_response

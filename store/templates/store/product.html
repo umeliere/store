@@ -15,11 +15,11 @@
                     <div class="card-body">
                         <h5 class="card-title">{{ product.name }} {{ product.producer }}</h5>
                         {% if product.discount != 0 %}
-                        <p class="card-text">Годен до: {{ product.shelf_time }}<br>Масса продукта: {{ product.weight }}кг.  </p>
-                        <p class="card-text"><span class="up"><s>{{ product.price }}</s></span> {{ product.get_discount }} р.</p>
+                        <p class="card-text">Годен до: {{ product.shelf_time }}<br>Масса продукта: {{ product.weight|floatformat:2 }}кг.  </p>
+                        <p class="card-text"><span class="up"><s>{{ product.price }}</s></span> {{ product.get_discount|floatformat:2 }} р.</p>
                         {% else %}
-                        <p class="card-text">Годен до: {{ product.shelf_time }}<br>Масса продукта: {{ product.weight }}кг.</p>
-                        <p class="card-text">{{ product.get_discount }} р.</p>
+                        <p class="card-text">Годен до: {{ product.shelf_time }}<br>Масса продукта: {{ product.weight|floatformat:2 }}кг.</p>
+                        <p class="card-text">{{ product.get_discount|floatformat:2 }} р.</p>
                         {% endif %}
                         <form action="{% url 'cart:cart_add' product.pk %}" method="post">
                         {% csrf_token %}
