@@ -11,7 +11,7 @@ from cart.models import Cart, CartItem
 
 class OrderCreateView(LoginRequiredMixin, CreateView):
     """
-    place the order view
+    Place the order view
     """
     login_url = reverse_lazy('users:login')
     form_class = OrderCreateForm
@@ -47,7 +47,7 @@ class OrderCreateView(LoginRequiredMixin, CreateView):
 
 class SuccessfulPurchaseView(TemplateView):
     """
-    successful placed the order view
+    Successful placed the order view
     """
     template_name = "orders/successful_purchase.html"
 

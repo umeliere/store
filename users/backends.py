@@ -6,7 +6,7 @@ UserModel = get_user_model()
 
 class UserModelBackend(ModelBackend):
     """
-    the class that allows to log in using the email and the login
+    The class that allows to log in using the email and the login
     """
 
     def authenticate(self, request, username=None, password=None, **kwargs):

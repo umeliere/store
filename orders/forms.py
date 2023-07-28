@@ -5,7 +5,7 @@ from orders.models import Order
 
 class OrderCreateForm(forms.ModelForm):
     """
-    the form that places the order
+    The form that places the order
     """
     class Meta:
         model = Order

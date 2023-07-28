@@ -7,7 +7,7 @@ from django.db.models import Q
 
 class ProductsWithDiscountView(ListView):
     """
-    the products with the discount view
+    The products with the discount view
     """
     template_name = 'store/discount_page.html'
     context_object_name = 'products'
@@ -25,7 +25,7 @@ class ProductsWithDiscountView(ListView):
 
 class SearchProductsWithDiscountView(ListView):
     """
-    the products with the discount after the search view
+    The products with the discount after the search view
     """
     template_name = 'store/search_discount_page.html'
     context_object_name = 'products'
@@ -33,7 +33,7 @@ class SearchProductsWithDiscountView(ListView):
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
-        search = self.request.GET.get("search")
+        search = self.request.GET.get("search", '')
         context['search'] = f"search={search}&"
         if not search:
             context["title"] = 'Все товары'
@@ -42,13 +42,13 @@ class SearchProductsWithDiscountView(ListView):
         return context
 
     def get_queryset(self):
-        return Product.objects.filter(name__icontains=self.request.GET.get('search')).exclude(
+        return Product.objects.filter(name__icontains=self.request.GET.get('search', '')).exclude(
             Q(discount=0) | Q(is_available=False))
 
 
 class ProductsWithDiscountByCategory(ListView):
     """
-    the products with the discount filtered by the categories view
+    The products with the discount filtered by the categories view
     """
     template_name = 'store/discount_page_by_category.html'
     context_object_name = 'products'
@@ -66,7 +66,7 @@ class ProductsWithDiscountByCategory(ListView):
 
 class ProductsWithoutDiscountView(ListView):
     """
-    the products without any discount view
+    The products without any discount view
     """
     template_name = 'store/products_page.html'
     context_object_name = 'products'
@@ -84,7 +84,7 @@ class ProductsWithoutDiscountView(ListView):
 
 class SearchProductsWithoutDiscountView(ListView):
     """
-    the products without any discount after the search view
+    The products without any discount after the search view
     """
     template_name = 'store/search_products_page.html'
     context_object_name = 'products'
@@ -92,7 +92,7 @@ class SearchProductsWithoutDiscountView(ListView):
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
-        search = self.request.GET.get("search")
+        search = self.request.GET.get("search", '')
         context['search'] = f"search={search}&"
         if not search:
             context["title"] = 'Все товары'
@@ -101,12 +101,12 @@ class SearchProductsWithoutDiscountView(ListView):
         return context
 
     def get_queryset(self):
-        return Product.objects.filter(name__icontains=self.request.GET.get('search'), discount=0, is_available=True)
+        return Product.objects.filter(name__icontains=self.request.GET.get('search', ''), discount=0, is_available=True)
 
 
 class ProductsWithoutDiscountByCategory(ListView):
     """
-    the products without any discount filtered by the categories view
+    The products without any discount filtered by the categories view
     """
     template_name = 'store/products_page_by_category.html'
     context_object_name = 'products'
@@ -123,7 +123,7 @@ class ProductsWithoutDiscountByCategory(ListView):
 
 class ProductDetailView(DetailView):
     """
-    the product detail view
+    The product detail view
     """
     template_name = 'store/product.html'
     model = Product

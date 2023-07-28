@@ -25,7 +25,7 @@ from users.models import Profile
 
 class SignUpView(SuccessMessageMixin, CreateView):
     """
-    sign up view
+    Sign up view
     """
     form_class = UserRegisterForm
     success_url = reverse_lazy('users:login')
@@ -40,7 +40,7 @@ class SignUpView(SuccessMessageMixin, CreateView):
 
 class MyLoginView(SuccessMessageMixin, LoginView):
     """
-    log in view
+    Log in view
     """
     form_class = UserLoginForm
     template_name = 'users/login.html'
@@ -55,7 +55,7 @@ class MyLoginView(SuccessMessageMixin, LoginView):
 
 class UserPasswordChangeView(PasswordChangeView):
     """
-    change the password view
+    Change the password view
     """
     form_class = UserPasswordChangeForm
     template_name = 'registration/password_change_form.html'
@@ -69,7 +69,7 @@ class UserPasswordChangeView(PasswordChangeView):
 
 class UserPasswordResetView(PasswordResetView):
     """
-    reset the password view
+    Reset the password view
     """
     form_class = UserForgotPasswordForm
     template_name = 'registration/password_reset_form.html'
@@ -85,7 +85,7 @@ class UserPasswordResetView(PasswordResetView):
 
 class UserPasswordSetView(PasswordResetConfirmView):
     """
-    set the new password view
+    Set the new password view
     """
     form_class = UserSetNewPasswordForm
     template_name = 'registration/password_reset_confirm.html'
@@ -99,7 +99,7 @@ class UserPasswordSetView(PasswordResetConfirmView):
 
 class ProfilePageView(LoginRequiredMixin, DetailView):
     """
-    the user profile view
+    The user profile view
     """
     queryset = Profile.objects.select_related('user')
     template_name = 'users/profile.html'
@@ -113,7 +113,7 @@ class ProfilePageView(LoginRequiredMixin, DetailView):
 
 class ProfileUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     """
-    update the user profile view
+    Update the user profile view
     """
     model = Profile
     queryset = Profile.objects.select_related('user')

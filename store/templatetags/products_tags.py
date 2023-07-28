@@ -8,6 +8,6 @@ register = template.Library()
 @register.simple_tag()
 def get_categories():
     """
-    get all the categories
+    Get all the categories
     """
     return Category.objects.all()

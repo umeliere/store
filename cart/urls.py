@@ -7,5 +7,5 @@ app_name = 'cart'
 urlpatterns = [
     path('', CartDetailView.as_view(), name='cart_detail'),
     path('delete/<int:pk>/', CartItemDeleteView.as_view(), name='cart_remove'),
-    path('add/<int:pk>/', require_POST(CartAddView.as_view()), name='cart_add')
+    path('add/<int:pk>/', require_POST(CartAddView.as_view()), name='cart_add'),
 ]

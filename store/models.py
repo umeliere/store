@@ -4,7 +4,7 @@ from django.urls import reverse_lazy
 
 class Product(models.Model):
     """
-    the product model
+    The product model
     """
     name = models.CharField(max_length=100, verbose_name='Название товара', unique=True)
     weight = models.FloatField(verbose_name='Масса')
@@ -20,13 +20,14 @@ class Product(models.Model):
     class Meta:
         verbose_name = 'Продукт'
         verbose_name_plural = "Продукты"
+        ordering = ['id']
 
     def __str__(self):
         return self.name
 
     def get_discount(self):
         """
-        the method that counts the discount of the product
+        The method that counts the discount of the product
         """
         return self.price * (100 - self.discount) / 100
 
@@ -36,7 +37,7 @@ class Product(models.Model):
 
 class Producer(models.Model):
     """
-    the producer model
+    The producer model
     """
     name = models.CharField(max_length=50, verbose_name='Производитель товара')
 
@@ -50,7 +51,7 @@ class Producer(models.Model):
 
 class Category(models.Model):
     """
-    the category model
+    The category model
     """
     name = models.CharField(max_length=50, verbose_name='Название категории')
 
@@ -60,6 +61,3 @@ class Category(models.Model):
 
     def __str__(self):
         return self.name
-
-    def get_absolute_url(self):
-        return reverse_lazy('store:category', kwargs={'pk': self.pk})

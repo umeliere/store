@@ -10,7 +10,7 @@ from cart.forms import CartAddProductForm
 
 class CartDetailView(LoginRequiredMixin, ListView):
     """
-    the user cart view
+    The user cart view
     """
     model = Cart
     template_name = 'cart/cart.html'
@@ -31,11 +31,12 @@ class CartDetailView(LoginRequiredMixin, ListView):
         return context
 
 
-class CartAddView(FormView):
+class CartAddView(LoginRequiredMixin, FormView):
     """
-    add the product to the cart view
+    Add the product to the cart view
     """
     form_class = CartAddProductForm
+    redirect_field_name = 'cart_detail'
 
     def form_valid(self, form):
         cart, _ = Cart.objects.get_or_create(user=self.request.user)
@@ -56,7 +57,7 @@ class CartAddView(FormView):
 
 class CartItemDeleteView(DeleteView):
     """
-    remove the product from the cart view
+    Remove the product from the cart view
     """
     template_name = 'cart/cart.html'
 
