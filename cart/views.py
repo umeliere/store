@@ -21,8 +21,8 @@ class CartDetailView(LoginRequiredMixin, ListView):
         context['cart'], _ = Cart.objects.get_or_create(user=self.request.user)
         context['items'] = CartItem.objects.filter(cart=context['cart']).select_related('product')
         if context['items']:
-            context['get_total_discount'] = context['cart'].get_total_discount(context['cart'])
-            context['get_total_cost'] = context['cart'].get_total_cost(context['cart']) - context['get_total_discount']
+            context['get_total_discount'] = context['cart'].get_total_discount()
+            context['get_total_cost'] = context['cart'].get_total_cost() - context['get_total_discount']
 
             for item in context['items']:
                 cart_item = CartAddProductForm(initial={'quantity': item.quantity, 'update': True})

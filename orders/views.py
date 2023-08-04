@@ -23,10 +23,9 @@ class OrderCreateView(LoginRequiredMixin, CreateView):
         context['title'] = 'Оформление заказа'
         context['cart'], _ = Cart.objects.get_or_create(user=self.request.user)
         try:
-            context['get_total_cost'] = context['cart'].get_total_cost(
-                context['cart']) - context['cart'].get_total_discount(context['cart'])
+            context['get_total_cost'] = context['cart'].get_total_cost() - context['cart'].get_total_discount()
         except TypeError:
-            context['get_total_cost'] = context['cart'].get_total_cost(context['cart'])
+            context['get_total_cost'] = context['cart'].get_total_cost()
         context['items'] = CartItem.objects.filter(cart=context['cart']).select_related('product')
         return context
 
