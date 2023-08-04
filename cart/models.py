@@ -31,7 +31,7 @@ class Cart(models.Model):
         The method, that counts the total cost of the cart
         """
         queryset = CartItem.objects.filter(cart=self.pk).aggregate(
-            total_cost=Sum(F('product__price') * F('quantity')))['total_cost']
+            total_cost=Sum(F('product__price') * F('quantity')) - self.get_total_discount())['total_cost']
 
         return queryset
 
