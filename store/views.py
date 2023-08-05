@@ -33,12 +33,11 @@ class SearchProductsWithDiscountView(ListView):
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
-        search = self.request.GET.get("search", '')
-        context['search'] = f"search={search}&"
-        if not search:
+        context['search'] = self.request.GET.get("search", '')
+        if not context['search']:
             context["title"] = 'Все товары'
         else:
-            context['title'] = f'Товары по запросу: {search}'
+            context['title'] = f'Товары по запросу: {context["search"]}'
         return context
 
     def get_queryset(self):
@@ -92,12 +91,11 @@ class SearchProductsWithoutDiscountView(ListView):
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
-        search = self.request.GET.get("search", '')
-        context['search'] = f"search={search}&"
-        if not search:
+        context['search'] = self.request.GET.get("search", '')
+        if not context['search']:
             context["title"] = 'Все товары'
         else:
-            context['title'] = f'Товары по запросу: {search}'
+            context['title'] = f'Товары по запросу: {context["search"]}'
         return context
 
     def get_queryset(self):
