@@ -29,12 +29,16 @@ RECAPTCHA_PRIVATE_KEY=XXXXX
 <h3>Вам нужно подключить YANDEX smtp, ДОКУМЕНТАЦИЯ:</h3>
 http://help.yandex.ru/mail/mail-clients.xml
 <p>И заполнить поля:</p>
-<p>EMAIL_HOST=XXXXX</p>
-<p>EMAIL_PORT=XXXXX</p>
-<p>EMAIL_HOST_USER=XXXXX</p>
-<p>DEFAULT_FROM_EMAIL=XXXXX</p>
-<p>EMAIL_HOST_PASSWORD=XXXXX</p>
-<p>EMAIL_USE_SSL=XXXXX</p>
+
+```
+EMAIL_HOST=XXXXX
+EMAIL_PORT=XXXXX
+EMAIL_HOST_USER=XXXXX
+DEFAULT_FROM_EMAIL=XXXXX
+EMAIL_HOST_PASSWORD=XXXXX
+EMAIL_USE_SSL=XXXXX
+```
+
 <p>Если вы не хотите пользоваться yandex smpt, вы всегда можете сменить на любой удобный почтовый сервис</p>
 
 https://docs.djangoproject.com/en/4.2/topics/email/  -- Документация
@@ -43,8 +47,11 @@ https://docs.djangoproject.com/en/4.2/topics/email/  -- Документация
 <h3>Также нужно подключить reCAPTCHA v2, ДОКУМЕНТАЦИЯ:</h3>
 https://developers.google.com/recaptcha/docs/display
 <p>И заполнить поля:</p>
-<p>RECAPTCHA_PUBLIC_KEY=XXXXX</p>
-<p>RECAPTCHA_PRIVATE_KEY=XXXXX</p>
+
+```
+RECAPTCHA_PUBLIC_KEY=XXXXX
+RECAPTCHA_PRIVATE_KEY=XXXXX
+```
 
 ---
 <h2>Последнии шаги</h2>
