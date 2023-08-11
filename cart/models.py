@@ -33,7 +33,7 @@ class Cart(models.Model):
         queryset = CartItem.objects.filter(cart=self.pk).aggregate(
             total_cost=Sum(F('product__price') * F('quantity')) - self.get_total_discount())['total_cost']
 
-        return queryset
+        return queryset if not type(queryset) is None else queryset - self.get_total_discount()
 
 
 class CartItem(models.Model):

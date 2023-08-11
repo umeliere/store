@@ -22,7 +22,7 @@ class OrderCreateView(LoginRequiredMixin, CreateView):
         context = super().get_context_data(**kwargs)
         context['title'] = 'Оформление заказа'
         context['cart'], _ = Cart.objects.get_or_create(user=self.request.user)
-        context['get_total_cost'] = context['cart'].get_total_cost() - context['cart'].get_total_discount()
+        context['get_total_cost'] = context['cart'].get_total_cost()
         context['items'] = CartItem.objects.filter(cart=context['cart']).select_related('product')
         return context
 
