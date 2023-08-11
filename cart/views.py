@@ -60,8 +60,9 @@ class CartItemDeleteView(DeleteView):
     Remove the product from the cart view
     """
     template_name = 'cart/cart.html'
+    model = Cart
 
-    def get(self, request, *args, **kwargs):
+    def delete(self, request, *args, **kwargs):
         cart, _ = Cart.objects.get_or_create(user=self.request.user)
         product = get_object_or_404(Product, pk=self.kwargs['pk'])
         CartItem.objects.get(cart=cart, product=product).delete()
